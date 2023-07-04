@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Home"),
+          title: const Text("Auth Demo"),
           actions: [
             Tooltip(
               message: "Log Out",
@@ -36,9 +36,11 @@ class Home extends StatelessWidget {
           future: user,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              String username = snapshot.data!.username;
               return Column(
                 children: [
-                  Text(snapshot.data!.email),
+                  Text("Welcome, $username!",
+                      style: const TextStyle(fontSize: 30)),
                 ],
               );
             } else if (snapshot.hasError) {

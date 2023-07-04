@@ -16,6 +16,7 @@ class CreateAccountForm extends StatelessWidget {
   final TextEditingController confirmPasswordController;
   final Function createAccount;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 50, 30, 100),
