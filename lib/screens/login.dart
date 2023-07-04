@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'create_account.dart';
 import '../models/db.dart';
 import '../models/user.dart';
 import 'home.dart';
 import "package:flutter_session_manager/flutter_session_manager.dart";
+import "package:auth_demo/widgets/login_form.dart";
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -70,48 +70,10 @@ class Login extends StatelessWidget {
         foregroundColor: Theme.of(context).primaryColor,
         elevation: 0,
       ),
-      body: Container(
-        padding: const EdgeInsets.fromLTRB(30, 50, 30, 100),
-        child: Form(
-            child: Column(
-          children: [
-            const Text(
-              "Login",
-              style: TextStyle(fontSize: 30),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                  label: Text("Email"), border: OutlineInputBorder()),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                  label: Text("Password"), border: OutlineInputBorder()),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            Row(children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor),
-                  onPressed: () {
-                    login(context);
-                  },
-                  child: const Text("Login")),
-              TextButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor: Theme.of(context).primaryColor),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CreateAccount()));
-                  },
-                  child: const Text("Don't have an account"))
-            ])
-          ],
-        )),
+      body: LoginForm(
+        emailController: emailController,
+        passwordController: passwordController,
+        login: login,
       ),
     );
   }
