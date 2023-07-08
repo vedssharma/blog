@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
-import '../models/db.dart';
+import '../data/db.dart';
 import 'home.dart';
 import "package:flutter_session_manager/flutter_session_manager.dart";
 import "package:auth_demo/validate.dart";
