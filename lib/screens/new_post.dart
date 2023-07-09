@@ -16,7 +16,8 @@ class NewPost extends StatelessWidget {
     Post post = Post(
         title: titleController.text,
         body: bodyController.text,
-        author: authorUsername);
+        author: authorUsername,
+        dateCreated: DateTime.now());
     await addPost(post);
   }
 

@@ -74,11 +74,13 @@ Future<List<Post>> getPosts() async {
     Post post = Post(
         title: result[i]["title"].toString(),
         author: result[i]["author"].toString(),
-        body: result[i]["body"].toString());
+        body: result[i]["body"].toString(),
+        dateCreated: result[i]["dateCreated"] as DateTime);
+
     posts.add(post);
   }
 
-  return posts;
+  return posts.reversed.toList();
 }
 
 Future<List<Post>> getPostsByUser(String username) async {
@@ -90,9 +92,10 @@ Future<List<Post>> getPostsByUser(String username) async {
     Post post = Post(
         title: result[i]["title"].toString(),
         author: username,
-        body: result[i]["body"].toString());
+        body: result[i]["body"].toString(),
+        dateCreated: result[i]["dateCreated"] as DateTime);
     userPosts.add(post);
   }
 
-  return userPosts;
+  return userPosts.reversed.toList();
 }
