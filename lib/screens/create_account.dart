@@ -6,6 +6,8 @@ import "package:flutter_session_manager/flutter_session_manager.dart";
 import "package:auth_demo/validate.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:auth_demo/widgets/create_account_form.dart";
+import "dart:convert";
+import "package:crypto/crypto.dart";
 
 class CreateAccount extends StatelessWidget {
   CreateAccount({super.key});
@@ -21,10 +23,14 @@ class CreateAccount extends StatelessWidget {
     validatePassword(
         passwordController.text, confirmPasswordController.text, context);
 
+    //Hash password
+    var bytes = utf8.encode(passwordController.text);
+    var digest = sha256.convert(bytes);
+
     User user = User(
         email: emailController.text,
         username: usernameController.text,
-        password: passwordController.text);
+        password: digest.toString());
 
     bool newUser = await addUser(user);
     if (!newUser) {

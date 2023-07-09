@@ -4,6 +4,8 @@ import '../models/user.dart';
 import 'home.dart';
 import "package:flutter_session_manager/flutter_session_manager.dart";
 import "package:auth_demo/widgets/login_form.dart";
+import "dart:convert";
+import "package:crypto/crypto.dart";
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -35,7 +37,12 @@ class Login extends StatelessWidget {
       //Check if password they enter matches password in db. If it does, then take user to home screen.
       // Other wise, invalid credentials popup.
       User user = await getUser(emailController.text);
-      if (passwordController.text == user.password) {
+
+      //hash password
+      var bytes = utf8.encode(passwordController.text);
+      var digest = sha256.convert(bytes);
+
+      if (digest.toString() == user.password) {
         //Correct Password, go to home screen
         SessionManager().set("user", user);
         Navigator.of(context)
