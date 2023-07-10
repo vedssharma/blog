@@ -80,7 +80,7 @@ Future<List<Post>> getPosts() async {
     posts.add(post);
   }
 
-  return posts.reversed.toList();
+  return posts;
 }
 
 Future<List<Post>> getPostsByUser(String username) async {
@@ -97,5 +97,5 @@ Future<List<Post>> getPostsByUser(String username) async {
     userPosts.add(post);
   }
 
-  return userPosts.reversed.toList();
+  return userPosts;
 }

@@ -23,7 +23,6 @@ class PostScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 10),
-          const SizedBox(height: 10),
           Text(post.author),
           const SizedBox(height: 10),
           Text(post.body),
