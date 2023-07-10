@@ -14,6 +14,7 @@ class Post {
     post["title"] = title;
     post["body"] = body;
     post["author"] = author;
+
     return post;
   }
 

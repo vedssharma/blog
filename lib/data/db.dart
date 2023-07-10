@@ -47,6 +47,17 @@ Future<User> getUser(String email) async {
 }
 
 // Post Database operations
+
+// Future<Database> getNewPostdb() async {
+//   final database = openDatabase(join(await getDatabasesPath(), "newPosts.db"),
+//       onCreate: (db, version) {
+//     return db.execute(
+//         "CREATE TABLE newPosts(id INTEGER, title String, author String, body String, dateCreated String)");
+//   }, version: 1);
+
+//   return database;
+// }
+
 Future<Database> getPostdb() async {
   final database = openDatabase(join(await getDatabasesPath(), "posts.db"),
       onCreate: (db, version) {
@@ -63,7 +74,11 @@ Future<void> addPost(Post post) async {
   String author = post.author;
   String body = post.body;
 
-  db.insert("posts", {"title": title, "author": author, "body": body});
+  db.insert("posts", {
+    "title": title,
+    "author": author,
+    "body": body,
+  });
 }
 
 Future<List<Post>> getPosts() async {
@@ -98,4 +113,9 @@ Future<List<Post>> getPostsByUser(String username) async {
   }
 
   return userPosts;
+}
+
+void deletePosts() async {
+  Database db = await getPostdb();
+  db.delete("posts");
 }
