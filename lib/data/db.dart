@@ -72,10 +72,10 @@ Future<List<Post>> getPosts() async {
   List<Post> posts = [];
   for (var i = 0; i < result.length; i++) {
     Post post = Post(
-        title: result[i]["title"].toString(),
-        author: result[i]["author"].toString(),
-        body: result[i]["body"].toString(),
-        dateCreated: result[i]["dateCreated"] as DateTime);
+      title: result[i]["title"].toString(),
+      author: result[i]["author"].toString(),
+      body: result[i]["body"].toString(),
+    );
 
     posts.add(post);
   }
@@ -90,10 +90,10 @@ Future<List<Post>> getPostsByUser(String username) async {
   List<Post> userPosts = [];
   for (var i = 0; i < result.length; i++) {
     Post post = Post(
-        title: result[i]["title"].toString(),
-        author: username,
-        body: result[i]["body"].toString(),
-        dateCreated: result[i]["dateCreated"] as DateTime);
+      title: result[i]["title"].toString(),
+      author: username,
+      body: result[i]["body"].toString(),
+    );
     userPosts.add(post);
   }
 

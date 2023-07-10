@@ -4,8 +4,15 @@ import "package:flutter_session_manager/flutter_session_manager.dart";
 import '../models/user.dart';
 import "../data/db.dart";
 
-class NewPost extends StatelessWidget {
-  NewPost({Key? key}) : super(key: key);
+class NewPost extends StatefulWidget {
+  NewPost({Key? key});
+
+  @override
+  State<NewPost> createState() => _NewPostState();
+}
+
+class _NewPostState extends State<NewPost> {
+  _NewPostState({Key? key});
 
   Future<User> getUser() async {
     return User.fromJson(await SessionManager().get("user"));
@@ -14,10 +21,10 @@ class NewPost extends StatelessWidget {
   void post() async {
     String authorUsername = (await getUser()).username;
     Post post = Post(
-        title: titleController.text,
-        body: bodyController.text,
-        author: authorUsername,
-        dateCreated: DateTime.now());
+      title: titleController.text,
+      body: bodyController.text,
+      author: authorUsername,
+    );
     await addPost(post);
   }
 

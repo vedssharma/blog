@@ -23,6 +23,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: null,
           title: const Text("Auth Demo"),
           backgroundColor: Theme.of(context).secondaryHeaderColor,
           foregroundColor: Theme.of(context).primaryColor,

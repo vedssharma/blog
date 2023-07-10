@@ -36,16 +36,17 @@ class UserPosts extends StatelessWidget {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              PostScreen(post: posts[index])));
-                    },
-                    child: ListTile(
-                      title: Text(posts[index].title),
-                      subtitle: Text(posts[index].author),
-                    ),
-                  );
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                PostScreen(post: posts[index])));
+                      },
+                      child: Card(
+                        child: Column(children: [
+                          Text(posts[index].title),
+                          Text(posts[index].author),
+                        ]),
+                      ));
                 },
                 itemCount: posts.length,
               );

@@ -69,7 +69,7 @@ class CreateAccountForm extends StatelessWidget {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) => Login()));
                   },
-                  child: const Text("Already have account"))
+                  child: const Text("Already have account")),
             ],
           )
         ],
