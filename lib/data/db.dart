@@ -47,17 +47,6 @@ Future<User> getUser(String email) async {
 }
 
 // Post Database operations
-
-// Future<Database> getNewPostdb() async {
-//   final database = openDatabase(join(await getDatabasesPath(), "newPosts.db"),
-//       onCreate: (db, version) {
-//     return db.execute(
-//         "CREATE TABLE newPosts(id INTEGER, title String, author String, body String, dateCreated String)");
-//   }, version: 1);
-
-//   return database;
-// }
-
 Future<Database> getPostdb() async {
   final database = openDatabase(join(await getDatabasesPath(), "posts.db"),
       onCreate: (db, version) {

@@ -42,10 +42,14 @@ class UserPosts extends StatelessWidget {
                                 PostScreen(post: posts[index])));
                       },
                       child: Card(
-                        child: Column(children: [
-                          Text(posts[index].title),
-                          Text(posts[index].author),
-                        ]),
+                        elevation: 5,
+                        child: Container(
+                          padding: const EdgeInsets.all(15),
+                          child: Column(children: [
+                            Text(posts[index].title),
+                            Text(posts[index].author),
+                          ]),
+                        ),
                       ));
                 },
                 itemCount: posts.length,

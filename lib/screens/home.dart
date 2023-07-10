@@ -4,7 +4,6 @@ import '../models/user.dart';
 import "package:auth_demo/screens/all_posts.dart";
 import "package:auth_demo/screens/new_post.dart";
 import "package:auth_demo/screens/user_posts.dart";
-import "../data/db.dart";
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -86,12 +85,6 @@ class Home extends StatelessWidget {
                               builder: (context) => NewPost()));
                         },
                         child: const Text("New Post")),
-                    ElevatedButton(
-                      child: const Text("Delete All Posts"),
-                      onPressed: () {
-                        deletePosts();
-                      },
-                    )
                   ],
                 ),
               );
