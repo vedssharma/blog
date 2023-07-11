@@ -84,7 +84,7 @@ Future<List<Post>> getPosts() async {
     posts.add(post);
   }
 
-  return posts;
+  return posts.reversed.toList();
 }
 
 Future<List<Post>> getPostsByUser(String username) async {
@@ -101,10 +101,5 @@ Future<List<Post>> getPostsByUser(String username) async {
     userPosts.add(post);
   }
 
-  return userPosts;
-}
-
-void deletePosts() async {
-  Database db = await getPostdb();
-  db.delete("posts");
+  return userPosts.reversed.toList();
 }

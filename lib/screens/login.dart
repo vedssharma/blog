@@ -72,6 +72,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Auth Demo"),
         backgroundColor: Theme.of(context).secondaryHeaderColor,
         foregroundColor: Theme.of(context).primaryColor,
