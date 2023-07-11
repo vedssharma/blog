@@ -26,6 +26,7 @@ class _NewPostState extends State<NewPost> {
       author: authorUsername,
     );
     await addPost(post);
+    Navigator.of(context).pop();
   }
 
   TextEditingController titleController = TextEditingController();

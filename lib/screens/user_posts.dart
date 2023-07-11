@@ -17,6 +17,33 @@ class UserPosts extends StatelessWidget {
     return getPostsByUser(user.username);
   }
 
+  void delete(BuildContext context, Post post) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Delete Post"),
+            content: const Text("Are you sure you want to delete this post?"),
+            actions: [
+              TextButton(
+                  style: TextButton.styleFrom(foregroundColor: Colors.red),
+                  onPressed: () {
+                    //Delete post
+                    deletePost(post);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Yes")),
+              TextButton(
+                child: const Text("No"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   late Future<List<Post>> userPosts = getUserPosts();
 
   @override
@@ -48,6 +75,11 @@ class UserPosts extends StatelessWidget {
                           child: Column(children: [
                             Text(posts[index].title),
                             Text(posts[index].author),
+                            IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  delete(context, posts[index]);
+                                })
                           ]),
                         ),
                       ));

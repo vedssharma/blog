@@ -103,3 +103,8 @@ Future<List<Post>> getPostsByUser(String username) async {
 
   return userPosts.reversed.toList();
 }
+
+void deletePost(Post post) async {
+  Database db = await getPostdb();
+  db.delete("posts", where: "body=?", whereArgs: [post.body]);
+}
