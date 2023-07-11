@@ -1,16 +1,12 @@
-# auth_demo
+# Blog
 
-A new Flutter project.
+This is a full stack blogging application made with Flutter. Blog posts and users are stored in a a database that is handled with sqflite, a SQLite plugin for Flutter. 
+User sessions are managed with Flutter Session Manager. 
 
-## Getting Started
+User can create and view posts. 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+More features that I will work on
+1. Editing and deleting posts
+2. Verify user with email
+3. Forgot password
+4. Authentication with 3rd party services such as Google (might user firebase)
