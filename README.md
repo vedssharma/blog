@@ -1,6 +1,6 @@
 # Blog
 
-This is a full stack blogging application made with Flutter. Blog posts and users are stored in a a database that is handled with sqflite, a SQLite plugin for Flutter. 
+This is a full stack blogging application made with Flutter. Blog posts and users are stored in a database that is handled with sqflite, a SQLite plugin for Flutter. 
 User sessions are managed with Flutter Session Manager. 
 
 User can create and view posts. 
