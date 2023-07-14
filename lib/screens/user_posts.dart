@@ -4,6 +4,7 @@ import "../models/user.dart";
 import "../models/post.dart";
 import "../data/db.dart";
 import "package:auth_demo/screens/post_screen.dart";
+import "../screens/edit_post.dart";
 
 class UserPosts extends StatelessWidget {
   UserPosts({Key? key}) : super(key: key);
@@ -75,6 +76,13 @@ class UserPosts extends StatelessWidget {
                           child: Column(children: [
                             Text(posts[index].title),
                             Text(posts[index].author),
+                            IconButton(
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditPost(oldPost: posts[index])));
+                                }),
                             IconButton(
                                 icon: const Icon(Icons.delete),
                                 onPressed: () {
