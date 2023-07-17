@@ -5,6 +5,7 @@ import "../models/post.dart";
 import "../data/db.dart";
 import "package:auth_demo/screens/post_screen.dart";
 import "../screens/edit_post.dart";
+import "../screens/home.dart";
 
 class UserPosts extends StatelessWidget {
   UserPosts({Key? key}) : super(key: key);
@@ -31,7 +32,12 @@ class UserPosts extends StatelessWidget {
                   onPressed: () {
                     //Delete post
                     deletePost(post);
-                    Navigator.of(context).pop();
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Home()));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Post deleted"),
+                      duration: Duration(seconds: 2),
+                    ));
                   },
                   child: const Text("Yes")),
               TextButton(

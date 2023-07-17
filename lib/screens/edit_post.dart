@@ -3,6 +3,7 @@ import "package:flutter_session_manager/flutter_session_manager.dart";
 import "package:auth_demo/models/user.dart";
 import "package:auth_demo/models/post.dart";
 import "../data/db.dart";
+import "package:auth_demo/screens/home.dart";
 
 class EditPost extends StatelessWidget {
   EditPost({Key? key, required this.oldPost}) : super(key: key);
@@ -54,7 +55,11 @@ class EditPost extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   edit();
-                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Home()));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Updated Post"),
+                  ));
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).primaryColor),

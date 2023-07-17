@@ -27,6 +27,9 @@ class _NewPostState extends State<NewPost> {
     );
     await addPost(post);
     Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Posted"),
+    ));
   }
 
   TextEditingController titleController = TextEditingController();
