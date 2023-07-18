@@ -38,36 +38,30 @@ class _NewPostState extends State<NewPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).secondaryHeaderColor,
-          foregroundColor: Theme.of(context).primaryColor,
-          elevation: 0,
-          title: const Text("New Post"),
-        ),
         body: Container(
-          child: Form(
-              child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Title", hintText: "Enter title"),
-                controller: titleController,
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                decoration: const InputDecoration(
-                    labelText: "Body", hintText: "Enter body"),
-                maxLines: null,
-                controller: bodyController,
-              ),
-              ElevatedButton(
-                onPressed: post,
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor),
-                child: const Text("Post"),
-              )
-            ],
-          )),
-        ));
+      child: Form(
+          child: Column(
+        children: [
+          TextFormField(
+            decoration: const InputDecoration(
+                labelText: "Title", hintText: "Enter title"),
+            controller: titleController,
+          ),
+          const SizedBox(height: 20),
+          TextFormField(
+            decoration: const InputDecoration(
+                labelText: "Body", hintText: "Enter body"),
+            maxLines: null,
+            controller: bodyController,
+          ),
+          ElevatedButton(
+            onPressed: post,
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor),
+            child: const Text("Post"),
+          )
+        ],
+      )),
+    ));
   }
 }

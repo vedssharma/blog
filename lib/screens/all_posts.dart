@@ -11,12 +11,6 @@ class AllPosts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).secondaryHeaderColor,
-        foregroundColor: Theme.of(context).primaryColor,
-        elevation: 0,
-        title: const Text("All Posts"),
-      ),
       body: FutureBuilder(
         future: posts,
         builder: (context, snapshot) {

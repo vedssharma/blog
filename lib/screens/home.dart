@@ -3,11 +3,16 @@ import "package:flutter_session_manager/flutter_session_manager.dart";
 import '../models/user.dart';
 import "package:auth_demo/screens/all_posts.dart";
 import "package:auth_demo/screens/new_post.dart";
-import "package:auth_demo/screens/user_posts.dart";
+import "package:auth_demo/screens/user_profile.dart";
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class Home extends StatefulWidget {
+  Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Future<User> getUser() async {
     return User.fromJson(await SessionManager().get("user"));
   }
@@ -19,12 +24,15 @@ class Home extends StatelessWidget {
 
   late Future<User> user = getUser();
 
+  int currentIndex = 0;
+  String currentTitle = "My Profile";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("Auth Demo"),
+          title: Text(currentTitle),
           backgroundColor: Theme.of(context).secondaryHeaderColor,
           foregroundColor: Theme.of(context).primaryColor,
           elevation: 0,
@@ -39,60 +47,33 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        body: FutureBuilder(
-          future: user,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              String username = snapshot.data!.username;
-              return Container(
-                padding: const EdgeInsets.all(50),
-                child: Column(
-                  children: [
-                    Text("Welcome, $username!",
-                        style: const TextStyle(fontSize: 30)),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25))),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => AllPosts()));
-                        },
-                        child: const Text("All Posts")),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25))),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => UserPosts()),
-                          );
-                        },
-                        child: const Text("My Posts")),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25))),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => NewPost()));
-                        },
-                        child: const Text("New Post")),
-                  ],
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const Text("Error");
-            }
-            return const Text("Loading");
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: currentIndex,
+          onDestinationSelected: (index) {
+            setState(() {
+              currentIndex = index;
+              if (currentIndex == 0) {
+                currentTitle = "My Profile";
+              } else if (currentIndex == 1) {
+                currentTitle = "New Post";
+              } else if (currentIndex == 2) {
+                currentTitle = "All Posts";
+              }
+            });
           },
-        ));
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.person),
+              label: "Me",
+            ),
+            NavigationDestination(icon: Icon(Icons.add), label: "New Post"),
+            NavigationDestination(icon: Icon(Icons.list), label: "All Posts"),
+          ],
+        ),
+        body: [
+          UserProfile(),
+          NewPost(),
+          AllPosts(),
+        ][currentIndex]);
   }
 }
