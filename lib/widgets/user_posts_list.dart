@@ -56,7 +56,12 @@ class UserPostsList extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Post> posts = snapshot.data as List<Post>;
+          if (posts.isEmpty) {
+            return const Text("No posts to show");
+          }
           return ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               return InkWell(
                   onTap: () {
@@ -66,7 +71,7 @@ class UserPostsList extends StatelessWidget {
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       child: Column(children: [
                         Text(posts[index].title),
                         Text(posts[index].author),

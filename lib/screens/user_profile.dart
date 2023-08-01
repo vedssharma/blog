@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter_session_manager/flutter_session_manager.dart";
 import "../widgets/user_posts_list.dart";
 import "../models/user.dart";
+import "./change_email.dart";
+import "./change_password.dart";
 
 class UserProfile extends StatelessWidget {
   UserProfile({Key? key}) : super(key: key);
@@ -34,7 +36,8 @@ class UserProfile extends StatelessWidget {
                   IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
-                        null;
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ChangeEmail()));
                       })
                 ],
               ),
@@ -45,7 +48,8 @@ class UserProfile extends StatelessWidget {
               TextButton(
                   child: const Text("Change password"),
                   onPressed: () {
-                    null;
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ChangePassword()));
                   })
             ],
           );
