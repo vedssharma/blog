@@ -23,7 +23,7 @@ class UserProfile extends StatelessWidget {
         if (snapshot.hasData) {
           User user = snapshot.data as User;
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "Welcome, ${user.username}!",
@@ -31,8 +31,10 @@ class UserProfile extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Email: ${user.email}"),
+                  Text("Email: ${user.email}",
+                      style: const TextStyle(fontSize: 20)),
                   IconButton(
                       icon: const Icon(Icons.edit),
                       onPressed: () {
@@ -45,12 +47,18 @@ class UserProfile extends StatelessWidget {
               const Text("My Posts:"),
               UserPostsList(user: user),
               const SizedBox(height: 30),
-              TextButton(
-                  child: const Text("Change password"),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ChangePassword()));
-                  })
+              Container(
+                  margin: const EdgeInsets.all(60),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          foregroundColor:
+                              Theme.of(context).secondaryHeaderColor,
+                          backgroundColor: Theme.of(context).primaryColor),
+                      child: const Text("Change password"),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => ChangePassword()));
+                      })),
             ],
           );
         } else if (snapshot.hasError) {
