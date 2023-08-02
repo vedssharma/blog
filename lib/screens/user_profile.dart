@@ -4,6 +4,7 @@ import "../widgets/user_posts_list.dart";
 import "../models/user.dart";
 import "./change_email.dart";
 import "./change_password.dart";
+import "./change_username.dart";
 
 class UserProfile extends StatelessWidget {
   UserProfile({Key? key}) : super(key: key);
@@ -59,6 +60,15 @@ class UserProfile extends StatelessWidget {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ChangePassword()));
                       })),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ChangeUsername()));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      foregroundColor: Theme.of(context).secondaryHeaderColor,
+                      backgroundColor: Theme.of(context).primaryColor),
+                  child: const Text("Change Username"))
             ],
           );
         } else if (snapshot.hasError) {

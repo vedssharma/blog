@@ -58,6 +58,12 @@ Future<void> updatePassword(User user, String newPassword) async {
       where: "email = ?", whereArgs: [user.email]);
 }
 
+Future<void> updateUsername(User user, String newUsername) async {
+  Database db = await getdb();
+  db.update("users", {"username": newUsername},
+      where: "email = ?", whereArgs: [user.email]);
+}
+
 // Post Database operations
 Future<Database> getPostdb() async {
   final database = openDatabase(join(await getDatabasesPath(), "posts.db"),
