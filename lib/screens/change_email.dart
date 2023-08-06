@@ -37,34 +37,40 @@ class ChangeEmail extends StatelessWidget {
           elevation: 0,
         ),
         body: Container(
+            padding: const EdgeInsets.all(20),
             child: Form(
                 child: Column(
-          children: [
-            TextFormField(
-              controller: newEmailController,
-              decoration: const InputDecoration(
-                  labelText: "New Email", hintText: "Enter new email"),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: confirmNewEmailController,
-              decoration: const InputDecoration(
-                  labelText: "Confirm New Email",
-                  hintText: "Confirm new email"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                changeEmail();
-                logout(context);
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Updated email. Log in again to see changes."),
-                ));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor),
-              child: const Text("Change Email"),
-            )
-          ],
-        ))));
+              children: [
+                TextFormField(
+                  controller: newEmailController,
+                  decoration: const InputDecoration(
+                      labelText: "New Email",
+                      hintText: "Enter new email",
+                      border: OutlineInputBorder()),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: confirmNewEmailController,
+                  decoration: const InputDecoration(
+                      labelText: "Confirm New Email",
+                      hintText: "Confirm new email",
+                      border: OutlineInputBorder()),
+                ),
+                const SizedBox(height: 25),
+                ElevatedButton(
+                  onPressed: () {
+                    changeEmail();
+                    logout(context);
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content:
+                          Text("Updated email. Log in again to see changes."),
+                    ));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor),
+                  child: const Text("Change Email"),
+                )
+              ],
+            ))));
   }
 }

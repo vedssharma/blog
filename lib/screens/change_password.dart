@@ -37,6 +37,7 @@ class ChangePassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text("Change password"),
         backgroundColor: Theme.of(context).secondaryHeaderColor,
@@ -44,43 +45,50 @@ class ChangePassword extends StatelessWidget {
         elevation: 0,
       ),
       body: Container(
+          padding: const EdgeInsets.all(20),
           child: Form(
               child: Column(children: [
-        TextFormField(
-          obscureText: true,
-          controller: currentPasswordController,
-          decoration: const InputDecoration(
-              labelText: "Current Password",
-              hintText: "Enter current password"),
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          obscureText: true,
-          controller: newPasswordController,
-          decoration: const InputDecoration(
-              labelText: "New Password", hintText: "Enter new password"),
-        ),
-        const SizedBox(height: 20),
-        TextFormField(
-          obscureText: true,
-          controller: confirmNewPasswordController,
-          decoration: const InputDecoration(
-              labelText: "Confirm New Password",
-              hintText: "Confirm new password"),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            changePassword();
-            logout(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Updated password. Log in again to see changes."),
-            ));
-          },
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).primaryColor),
-          child: const Text("Change Password"),
-        )
-      ]))),
+            TextFormField(
+              obscureText: true,
+              controller: currentPasswordController,
+              decoration: const InputDecoration(
+                  labelText: "Current Password",
+                  hintText: "Enter current password",
+                  border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 20),
+            TextFormField(
+              obscureText: true,
+              controller: newPasswordController,
+              decoration: const InputDecoration(
+                  labelText: "New Password",
+                  hintText: "Enter new password",
+                  border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 25),
+            TextFormField(
+              obscureText: true,
+              controller: confirmNewPasswordController,
+              decoration: const InputDecoration(
+                  labelText: "Confirm New Password",
+                  hintText: "Confirm new password",
+                  border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 25),
+            ElevatedButton(
+              onPressed: () {
+                changePassword();
+                logout(context);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content:
+                      Text("Updated password. Log in again to see changes."),
+                ));
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor),
+              child: const Text("Change Password"),
+            )
+          ]))),
     );
   }
 }

@@ -36,35 +36,44 @@ class ChangeUsername extends StatelessWidget {
           backgroundColor: Theme.of(context).secondaryHeaderColor,
           foregroundColor: Theme.of(context).primaryColor,
         ),
-        body: Form(
-            child: Column(
-          children: [
-            TextFormField(
-              controller: newUsernameController,
-              decoration: const InputDecoration(
-                  labelText: "New Username", hintText: "Enter new username"),
-            ),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: confirmNewUsernameController,
-              decoration: const InputDecoration(
-                  labelText: "Confirm New Username",
-                  hintText: "Confirm new username"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                changeUsername();
-                logout(context);
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content:
-                      Text("Updated username. Log in again to see changes."),
-                ));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor),
-              child: const Text("Change Username"),
-            )
-          ],
-        )));
+        body: Container(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+              child: Column(
+            children: [
+              TextFormField(
+                controller: newUsernameController,
+                decoration: const InputDecoration(
+                    labelText: "New Username",
+                    hintText: "Enter new username",
+                    border: OutlineInputBorder()),
+              ),
+              const SizedBox(height: 25),
+              TextFormField(
+                controller: confirmNewUsernameController,
+                decoration: const InputDecoration(
+                    labelText: "Confirm New Username",
+                    hintText: "Confirm new username",
+                    border: OutlineInputBorder()),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  changeUsername();
+                  logout(context);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content:
+                        Text("Updated username. Log in again to see changes."),
+                  ));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor),
+                child: const Text("Change Username"),
+              )
+            ],
+          )),
+        ));
   }
 }
