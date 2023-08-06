@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:auth_demo/models/user.dart";
 import "package:auth_demo/data/db.dart";
 import "package:flutter_session_manager/flutter_session_manager.dart";
+import "package:auth_demo/screens/login.dart";
 
 class ChangeUsername extends StatelessWidget {
   ChangeUsername({Key? key}) : super(key: key);
@@ -11,6 +12,12 @@ class ChangeUsername extends StatelessWidget {
 
   Future<User> getUser() async {
     return User.fromJson(await SessionManager().get("user"));
+  }
+
+  void logout(BuildContext context) {
+    SessionManager().remove("user");
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Login()));
   }
 
   Future<void> changeUsername() async {
@@ -47,9 +54,10 @@ class ChangeUsername extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 changeUsername();
-                Navigator.of(context).pop();
+                logout(context);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Updated username"),
+                  content:
+                      Text("Updated username. Log in again to see changes."),
                 ));
               },
               style: ElevatedButton.styleFrom(

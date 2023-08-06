@@ -2,12 +2,19 @@ import "package:flutter/material.dart";
 import "package:flutter_session_manager/flutter_session_manager.dart";
 import "../data/db.dart";
 import "../models/user.dart";
+import "package:auth_demo/screens/login.dart";
 
 class ChangeEmail extends StatelessWidget {
   ChangeEmail({Key? key}) : super(key: key);
 
   TextEditingController newEmailController = TextEditingController();
   TextEditingController confirmNewEmailController = TextEditingController();
+
+  void logout(BuildContext context) {
+    SessionManager().remove("user");
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Login()));
+  }
 
   Future<User> getUser() async {
     return User.fromJson(await SessionManager().get("user"));
@@ -48,9 +55,9 @@ class ChangeEmail extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 changeEmail();
-                Navigator.of(context).pop();
+                logout(context);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Updated email"),
+                  content: Text("Updated email. Log in again to see changes."),
                 ));
               },
               style: ElevatedButton.styleFrom(

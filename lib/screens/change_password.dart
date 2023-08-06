@@ -4,6 +4,7 @@ import "package:auth_demo/models/user.dart";
 import "package:flutter_session_manager/flutter_session_manager.dart";
 import "dart:convert";
 import "package:crypto/crypto.dart";
+import "package:auth_demo/screens/login.dart";
 
 class ChangePassword extends StatelessWidget {
   TextEditingController currentPasswordController = TextEditingController();
@@ -12,6 +13,12 @@ class ChangePassword extends StatelessWidget {
 
   Future<User> getUser() async {
     return User.fromJson(await SessionManager().get("user"));
+  }
+
+  void logout(BuildContext context) {
+    SessionManager().remove("user");
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Login()));
   }
 
   Future<void> changePassword() async {
@@ -64,9 +71,9 @@ class ChangePassword extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             changePassword();
-            Navigator.of(context).pop();
+            logout(context);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text("Updated password"),
+              content: Text("Updated password. Log in again to see changes."),
             ));
           },
           style: ElevatedButton.styleFrom(
