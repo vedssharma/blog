@@ -20,10 +20,27 @@ class ChangeUsername extends StatelessWidget {
         .push(MaterialPageRoute(builder: (context) => Login()));
   }
 
-  Future<void> changeUsername() async {
+  Future<void> changeUsername(BuildContext context) async {
     User user = await getUser();
     if (newUsernameController.text == confirmNewUsernameController.text) {
       await updateUsername(user, newUsernameController.text);
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Error"),
+              content: const Text("Usernames do not match"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Try Again"))
+              ],
+            );
+          });
     }
   }
 
@@ -61,7 +78,7 @@ class ChangeUsername extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  changeUsername();
+                  changeUsername(context);
                   logout(context);
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content:

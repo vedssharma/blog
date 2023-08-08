@@ -21,7 +21,7 @@ class ChangePassword extends StatelessWidget {
         .push(MaterialPageRoute(builder: (context) => Login()));
   }
 
-  Future<void> changePassword() async {
+  Future<void> changePassword(BuildContext context) async {
     User user = await getUser();
     var bytes = utf8.encode(currentPasswordController.text);
     var digest = sha256.convert(bytes);
@@ -30,7 +30,41 @@ class ChangePassword extends StatelessWidget {
         var newBytes = utf8.encode(newPasswordController.text);
         var newDigest = sha256.convert(newBytes);
         await updatePassword(user, newDigest.toString());
+      } else {
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: const Text("Passwords do not match"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Try Again"))
+                ],
+              );
+            });
       }
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Error"),
+              content: const Text("Password is incorrect"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Try Again"))
+              ],
+            );
+          });
     }
   }
 
@@ -77,7 +111,7 @@ class ChangePassword extends StatelessWidget {
             const SizedBox(height: 25),
             ElevatedButton(
               onPressed: () {
-                changePassword();
+                changePassword(context);
                 logout(context);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content:

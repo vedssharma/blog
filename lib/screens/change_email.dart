@@ -20,10 +20,27 @@ class ChangeEmail extends StatelessWidget {
     return User.fromJson(await SessionManager().get("user"));
   }
 
-  Future<void> changeEmail() async {
+  Future<void> changeEmail(BuildContext context) async {
     User user = await getUser();
     if (newEmailController.text == confirmNewEmailController.text) {
       await updateEmail(user, newEmailController.text);
+    } else {
+      // ignore: use_build_context_synchronously
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Error"),
+              content: const Text("Emails do not match"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Try Again"))
+              ],
+            );
+          });
     }
   }
 
@@ -59,7 +76,7 @@ class ChangeEmail extends StatelessWidget {
                 const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: () {
-                    changeEmail();
+                    changeEmail(context);
                     logout(context);
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content:
