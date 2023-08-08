@@ -25,22 +25,23 @@ class ChangeEmail extends StatelessWidget {
     if (newEmailController.text == confirmNewEmailController.text) {
       await updateEmail(user, newEmailController.text);
     } else {
-      // ignore: use_build_context_synchronously
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: const Text("Emails do not match"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try Again"))
-              ],
-            );
-          });
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: const Text("Emails do not match"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Try Again"))
+                ],
+              );
+            });
+      }
     }
   }
 

@@ -26,10 +26,6 @@ class _NewPostState extends State<NewPost> {
       author: authorUsername,
     );
     await addPost(post);
-    Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text("Posted"),
-    ));
   }
 
   TextEditingController titleController = TextEditingController();
@@ -39,6 +35,7 @@ class _NewPostState extends State<NewPost> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
+      padding: const EdgeInsets.all(20),
       child: Form(
           child: Column(
         children: [
@@ -54,8 +51,15 @@ class _NewPostState extends State<NewPost> {
             maxLines: null,
             controller: bodyController,
           ),
+          const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: post,
+            onPressed: () {
+              post();
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Posted"),
+              ));
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor),
             child: const Text("Post"),

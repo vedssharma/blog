@@ -31,13 +31,32 @@ class ChangePassword extends StatelessWidget {
         var newDigest = sha256.convert(newBytes);
         await updatePassword(user, newDigest.toString());
       } else {
-        // ignore: use_build_context_synchronously
+        if (context.mounted) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Error"),
+                  content: const Text("Passwords do not match"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Try Again"))
+                  ],
+                );
+              });
+        }
+      }
+    } else {
+      if (context.mounted) {
         showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text("Error"),
-                content: const Text("Passwords do not match"),
+                content: const Text("Password is incorrect"),
                 actions: [
                   TextButton(
                       onPressed: () {
@@ -48,23 +67,6 @@ class ChangePassword extends StatelessWidget {
               );
             });
       }
-    } else {
-      // ignore: use_build_context_synchronously
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: const Text("Password is incorrect"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try Again"))
-              ],
-            );
-          });
     }
   }
 

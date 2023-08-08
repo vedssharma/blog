@@ -35,25 +35,33 @@ class CreateAccount extends StatelessWidget {
     bool newUser = await addUser(user);
     if (!newUser) {
       //User with that email exists dialog
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: const Text("A user with that email exists"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try Again"))
-              ],
-            );
-          });
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: const Text("A user with that email exists"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Try Again"))
+                ],
+              );
+            });
+      }
     } else {
       SessionManager().set("user", user);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => Home()));
+      if (context.mounted) {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Home()));
+
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("You have been logged in."),
+        ));
+      }
     }
   }
 

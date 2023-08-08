@@ -25,22 +25,23 @@ class ChangeUsername extends StatelessWidget {
     if (newUsernameController.text == confirmNewUsernameController.text) {
       await updateUsername(user, newUsernameController.text);
     } else {
-      // ignore: use_build_context_synchronously
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: const Text("Usernames do not match"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try Again"))
-              ],
-            );
-          });
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: const Text("Usernames do not match"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Try Again"))
+                ],
+              );
+            });
+      }
     }
   }
 

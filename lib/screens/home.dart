@@ -42,6 +42,9 @@ class _HomeState extends State<Home> {
               child: IconButton(
                   onPressed: () {
                     logout(context);
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("You have been logged out."),
+                    ));
                   },
                   icon: const Icon(Icons.logout)),
             )

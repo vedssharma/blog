@@ -17,22 +17,24 @@ class Login extends StatelessWidget {
     bool existingUser = await userExists(emailController.text);
     if (existingUser == false) {
       //Invalid: User does not exist
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("Error"),
-              content: const Text(
-                  "User does not exist. Try again with different credentials or create an account."),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try Again"))
-              ],
-            );
-          });
+      if (context.mounted) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Error"),
+                content: const Text(
+                    "User does not exist. Try again with different credentials or create an account."),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text("Try Again"))
+                ],
+              );
+            });
+      }
     } else {
       //Check if password they enter matches password in db. If it does, then take user to home screen.
       // Other wise, invalid credentials popup.
@@ -45,25 +47,33 @@ class Login extends StatelessWidget {
       if (digest.toString() == user.password) {
         //Correct Password, go to home screen
         SessionManager().set("user", user);
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => Home()));
+        if (context.mounted) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => Home()));
+
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("You have been logged in."),
+          ));
+        }
       } else {
         //Incorrect password dialog popup
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("Error"),
-                content: const Text("Incorrect Password"),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("Try Again"))
-                ],
-              );
-            });
+        if (context.mounted) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Error"),
+                  content: const Text("Incorrect Password"),
+                  actions: [
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Try Again"))
+                  ],
+                );
+              });
+        }
       }
     }
   }
